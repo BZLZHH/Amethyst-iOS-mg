@@ -1,11 +1,10 @@
 #import <UIKit/UIKit.h>
 
-#define realUIIdiom UIDevice.currentDevice.hook_userInterfaceIdiom
+#define realUIIdiom UIDevice.currentDevice.userInterfaceIdiom
 extern NSNotificationName UIPresentationControllerPresentationTransitionWillBeginNotification;
 
 @interface UIDevice(hook)
 - (NSString *)completeOSVersion;
-- (UIUserInterfaceIdiom)hook_userInterfaceIdiom;
 @end
 
 @interface UIImageView(hook)
@@ -27,10 +26,15 @@ extern NSNotificationName UIPresentationControllerPresentationTransitionWillBegi
 
 @interface UIDevice(private)
 - (NSString *)buildVersion;
+- (void)_setActiveUserInterfaceIdiom:(NSInteger)idiom;
 @end
 
 @interface UIImage(private)
 - (UIImage *)_imageWithSize:(CGSize)size;
+@end
+
+@interface UIScreen(private)
+- (void)_setUserInterfaceIdiom:(NSInteger)idiom;
 @end
 
 @interface UITextField(private)

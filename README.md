@@ -14,10 +14,10 @@ Amethyst is a Minecraft: Java Edition launcher for Android, iOS, and iPadOS, bas
 * Microsoft account and demo mode support for logging into Minecraft.
 * ...and much more!
 
-This repository contains the code for our iOS and iPadOS port of Amethyst. Looking for [Android?](https://github.com/AngelAuraMC/Amethyst-iOS)
+This repository contains the code for our iOS and iPadOS port of Amethyst. Looking for [Android?](https://github.com/AngelAuraMC/Amethyst-Android)
 
 ## Getting started with Amethyst
-The [Amethyst wiki](https://angelauramc.dev/wiki/INSTALL.html#ios) has extensive documentation on how to install, set up, and play! For those who wish to install quickly, here's the basics:
+The [Amethyst wiki](https://wiki.angelauramc.dev/wiki/getting_started/INSTALL.html#ios) has extensive documentation on how to install, set up, and play! For those who wish to install quickly, here's the basics:
 
 ### Requirements
 At the minimum, you'll need one of the following devices on **iOS 14.0** and later:
@@ -36,16 +36,16 @@ However, we recommend one of the following devices on **iOS 14.0** and later:
 - iPad Pro (all models, except for 9.7-inch)
 
 Recommended devices provide a smoother and more enjoyable gameplay experience compared to other supported devices.
-- iOS 17.x and iOS 18.x is supported. However, a computer is required. These methods will ultilized usage of pymobiledevice3. Python 3.11.(x) must be properly set up on your computer. For more information, please check out the official Wiki: https://angelauramc.dev/wiki/JIT.html#what-are-the-methods-to-enable-jit
+- iOS 17.x and iOS 18.x is supported. However, a computer is required. For more information, please check out [the official wiki](https://wiki.angelauramc.dev/wiki/faq/ios/JIT.html#what-are-the-methods-to-enable-jit)
 
 ### Setting up to sideload
-Amethyst can be sideloaded in many ways. Our recommended solution is to install [TrollStore](https://github.com/opa334/TrollStore) if your iOS version supports it. Installing with TrollStore allows you to permenantly sign the application, automatically enable JIT, and increase memory limits.
+Amethyst can be sideloaded in many ways. Our recommended solution is to install [TrollStore](https://github.com/opa334/TrollStore) if your iOS version supports it. Installing with TrollStore allows you to permanently sign the application, automatically enable JIT, and increase memory limits.
 
 If you cannot, [AltStore](https://altstore.io) and [SideStore](https://sidestore.io) are your next best options.
 - Signing services that do not use your UDID (and use distribution certificates) are not supported, as Amethyst requires capabilities they do not allow. However, if you do managed to gain access to a Development certificate, due to it having the necessary entitlement (being com.apple.security.get-task-allow) to attach a debugger to the running process (enabling JIT), you may use a Development certificate.
   
 - Only install sideloading software and Amethyst from trusted sources. We are not responsible for any harm caused by using unofficial software.
-- Jailbreaks also benefit from permenant signing, autoJIT, and increased memory limits, however we do not recommend them for regular use.
+- Jailbreaks also benefit from permenant signing, autoJIT, and increased memory limits. However, we do not recommend them on devices intended for regular use.
 
 ### Installing Amethyst
 #### Release build (TrollStore)
@@ -65,13 +65,14 @@ These builds will be available soon, stay tuned.
 
 ### Enabling JIT
 Amethyst makes use of **just-in-time compilation**, or JIT, to provide usable speeds for the end user. JIT is not supported on iOS without the application being debugged, so workarounds are required to enable it. You can use this chart to determine the best solution for you and your setup.
-| Application         | AltStore | SideStore | TrollStore | Jitterbug          | Jailbroken |
-|---------------------|----------|-----------|------------|--------------------|------------|
-| Requires ext-device | Yes      | No        | No         | If VPN unavailable | No         |
-| Requires Wi-Fi      | Yes      | Yes       | No         | Yes                | No         |
-| Auto enabled        | Yes(*)   | No        | Yes        | No                 | Yes        |
+| Application         | AltStore | SideStore | StikDebug | TrollStore | Jitterbug          | Jailbroken |
+|---------------------|----------|-----------|-----------|------------|--------------------|------------|
+| Requires ext-device | Yes      | Yes (#)   | Yes (#)   | No         | If VPN unavailable | No         |
+| Requires Wi-Fi      | Yes      | Yes (#)   | Yes (#)   | No         | Yes                | No         |
+| Auto enabled        | Yes (*)  | No        | Yes       | Yes        | No                 | Yes        |
 
 (*) AltServer running on the local network is required.
+(#) Only the first time.
 
 ## Contributors
 Amethyst is amazing, and surprisingly stable, and it wouldn't be this way without the commmunity that helped and contribute to the project! Some notable names:

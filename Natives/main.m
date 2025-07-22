@@ -296,10 +296,10 @@ int main(int argc, char *argv[]) {
     init_redirectStdio();
     init_logDeviceAndVer(argv[0]);
 
+    loadPreferences(NO);
     init_hookFunctions();
     init_hookUIKitConstructor();
 
-    loadPreferences(NO);
     debugLogEnabled = getPrefBool(@"general.debug_logging");
     NSLog(@"[Debugging] Debug log enabled: %@", debugLogEnabled ? @"YES" : @"NO");
 

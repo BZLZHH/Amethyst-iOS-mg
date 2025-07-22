@@ -100,11 +100,15 @@ void init_loadCustomJvmFlags(int* argc, const char** argv) {
 int launchJVM(NSString *username, id launchTarget, int width, int height, int minVersion) {
     NSLog(@"[JavaLauncher] Beginning JVM launch");
 
-    if (NSBundle.mainBundle.infoDictionary[@"LCDataUUID"]) {
+    if ([NSFileManager.defaultManager fileExistsAtPath:[NSBundle.mainBundle.bundlePath stringByAppendingPathComponent:@"LCAppInfo.plist"]]) {
         NSDebugLog(@"[JavaLauncher] Running in LiveContainer, skipping dyld patch");
     } else {
-        // Activate Library Validation bypass for external runtime and dylibs (JNA, etc)
-        init_bypassDyldLibValidation();
+        if(@available(iOS 19.0, *)) {
+            // Disable Library Validation bypass for iOS 26 because of stricter JIT
+        } else {
+            // Activate Library Validation bypass for external runtime and dylibs (JNA, etc)
+            init_bypassDyldLibValidation();
+        }
     }
 
 

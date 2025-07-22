@@ -28,7 +28,7 @@ UIEdgeInsets insets;
     CGSize size = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
     insets = UIApplication.sharedApplication.windows.firstObject.safeAreaInsets;
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://angelauramc.dev/wiki/changelogs/IOS.html"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://wiki.angelauramc.dev/patchnotes/changelogs/IOS.html"]];
 
     WKWebViewConfiguration *webConfig = [[WKWebViewConfiguration alloc] init];
     webView = [[WKWebView alloc] initWithFrame:self.view.frame configuration:webConfig];
@@ -47,7 +47,11 @@ UIEdgeInsets insets;
 
     if(!isJailbroken && getPrefBool(@"warnings.limited_ram_warn") && (roundf(NSProcessInfo.processInfo.physicalMemory / 0x1000000) < 3900)) {
         // "This device has a limited amount of memory available."
-        [self showWarningAlert:@"limited_ram" hasPreference:YES];
+        [self showWarningAlert:@"limited_ram" hasPreference:YES exitWhenCompleted:NO];
+    }
+    
+    if (@available(iOS 26.0, *)) {
+        [self showWarningAlert:@"ios19_jitdead" hasPreference:NO exitWhenCompleted:YES];
     }
 
     self.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
@@ -55,16 +59,22 @@ UIEdgeInsets insets;
     self.navigationItem.leftItemsSupplementBackButton = true;
 }
 
--(void)showWarningAlert:(NSString *)key hasPreference:(BOOL)isPreferenced {
+-(void)showWarningAlert:(NSString *)key hasPreference:(BOOL)isPreferenced exitWhenCompleted:(BOOL)shouldExit {
     UIAlertController *warning = [UIAlertController
                                       alertControllerWithTitle:localize([NSString stringWithFormat:@"login.warn.title.%@", key], nil)
-                                      message:localize([NSString stringWithFormat:@"login.warn.title.%@", key], nil)
+                                      message:localize([NSString stringWithFormat:@"login.warn.message.%@", key], nil)
                                       preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *action;
     if(isPreferenced) {
         action = [UIAlertAction actionWithTitle:localize(@"OK", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
             setPrefBool([NSString stringWithFormat:@"warnings.%@_warn", key], NO);
+        }];
+    } else if(shouldExit) {
+        action = [UIAlertAction actionWithTitle:localize(@"OK", nil) style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+            [UIApplication.sharedApplication performSelector:@selector(suspend)];
+            usleep(100*1000);
+            exit(0);
         }];
     } else {
         action = [UIAlertAction actionWithTitle:localize(@"OK", nil) style:UIAlertActionStyleCancel handler:nil];
