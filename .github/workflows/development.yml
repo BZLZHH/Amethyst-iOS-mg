@@ -26,10 +26,8 @@ jobs:
           brew update
           brew install make
 
-      - name: Install Java 8 via Homebrew Cask
+      - name: Install Java 8 (Temurin) via Homebrew
         run: |
-          brew update
-          brew tap homebrew/cask-versions
           brew install --cask temurin8
 
       - name: Install ldid
