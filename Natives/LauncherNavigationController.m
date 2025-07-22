@@ -334,10 +334,10 @@ static void *ProgressObserverContext = &ProgressObserverContext;
                 UIKit_launchMinecraftSurfaceVC(self.view.window, self.task.metadata);
             }];
         } else {
-            self.task = nil;
-            [self setInteractionEnabled:YES forDownloading:YES];
             [self reloadProfileList];
         }
+        self.task = nil;
+        [self setInteractionEnabled:YES forDownloading:YES];
     });
 }
 
