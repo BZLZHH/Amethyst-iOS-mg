@@ -28,7 +28,7 @@ jobs:
 
       - name: Install Java 8 (Temurin) via Homebrew
         run: |
-          brew install --cask temurin8
+          brew install --cask temurin@8
 
       - name: Install ldid
         run: |
