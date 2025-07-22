@@ -26,11 +26,15 @@ jobs:
           brew update
           brew install make
 
-      - name: Set up JDK 8
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 21.0.8+9.0.LTS
+
+      - name: Install ldid
+        run: |
+          brew install ldid
           
       - name: Remove work folders
         run: |
